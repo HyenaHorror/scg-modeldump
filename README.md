@@ -5,7 +5,7 @@ Tool that dumps the .nod model files of Starcraft Ghost into .obj format.
 Download this tool by clicking on the green Code button and click Download Zip.
 
 # How to use
-You need to install a recent version of Python 3 (e.g. 3.8 or newer). When installing, make sure you click on "Add Python to PATH" at the start of the installer. 
+You need to install a recent version of Python 3 (e.g. 3.8 or newer). When installing, make sure you click on "Add Python to PATH" at the start of the installer.
 
 Copy the files convertall.py, parse.py, read_nod.py and vectors.py into the root directory of Starcraft Ghost (in the same place where e.g. Ghost.exe is). Run convertall.py by double-clicking convertall.py or you can open the command prompt in the same folder as convertall.py (using Shift+Right click) and then type in ``python convertall.py``. This will convert all .nod files in the \3D\Models\ folder to .obj files which are written into a \converted_models\ folder that the tool creates. You can import the obj files using e.g. Blender to view the models.
 

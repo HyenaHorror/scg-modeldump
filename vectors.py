@@ -215,7 +215,7 @@ class Line(object):
         edge1 = tri.p1_to_p2
         edge2 = tri.p1_to_p3
 
-        normal = tri.normal 
+        normal = tri.normal
         if normal.is_zero():
             return False
 

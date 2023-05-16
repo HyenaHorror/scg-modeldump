@@ -1,5 +1,5 @@
-import subprocess 
-import os 
+import subprocess
+import os
 from parse import read_material_file
 from read_nod import NodModel
 
@@ -14,7 +14,7 @@ for file in os.listdir(folder):
                     nod = NodModel.from_file(f, g)
             except:
                 print(fullpath, "failed")"""
-                
+
 
 def find_all_textures(folderpath):
     textures = {}
@@ -22,7 +22,7 @@ def find_all_textures(folderpath):
         for file in files:
             if file.endswith(".dds"):
                 textures[file] = os.path.join(path, file)
-    
+
     return textures
 
 from shutil import copyfile, SameFileError
@@ -53,7 +53,7 @@ for file in os.listdir(matpath):
         for mat, data in materials.items():
             if "texture" in data:
                 tex = data["texture"]
-                if tex in textures: 
+                if tex in textures:
                     mat2texture[mat.lower()] = textures[tex]
                 elif tex+".dds" in textures:
                     mat2texture[mat.lower()] = textures[tex+".dds"]
@@ -68,7 +68,7 @@ for file in os.listdir(matpath):
     copyfile(path, os.path.join("./converted_models/textures", basename))
     mat2texture[mat] = os.path.join("./textures", basename)"""
 
-#import json 
+#import json
 #with open("materials.json", "w") as f:
 #    json.dump(mat2texture, f, indent=4)
 
@@ -79,7 +79,7 @@ for file in os.listdir(folder):
     fullpath = os.path.join(folder, file)
     if fullpath.endswith(".nod"):
         basename = os.path.basename(fullpath)
-        
+
         with open(fullpath, "rb") as f:
             objpath = os.path.join("./converted_models/", basename)
             with open(objpath+".obj", "w") as g:
