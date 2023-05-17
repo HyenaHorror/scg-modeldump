@@ -1,7 +1,34 @@
 import subprocess
 import os
+import sys
 from parse import read_material_file
 from read_nod import NodModel
+
+def parse_command_line_arguments():
+    # Parse command line arguments into input and output paths
+    input_path = output_path = ""
+
+    if len(sys.argv) >= 2:
+        # Normalize path, assign 1st arg to input_path
+        input_path = os.path.normpath(sys.argv[1])
+        if len(sys.argv) >= 3:
+            # Normalize path, assign 2nd arg to output_path
+            output_path = os.path.normpath(sys.argv[2])
+        else:
+            # Default to current path if 2nd arg absent
+            output_path = os.getcwd()
+        # Extra arguments beyond the second are ignored
+    else:
+        # Print usage message and exit if no arguments
+        print(f"Usage: {sys.argv[0]} INPUT_PATH [OUTPUT_PATH]")
+        sys.exit(1)
+
+    return input_path, output_path
+
+def combine_paths(first, second):
+    # Combine and normalize two paths
+    return os.path.normpath(os.path.join(first, second))
+
 
 folder = ".\\3D\\Models"
 """
