@@ -1,6 +1,6 @@
-import subprocess
 import os
 import sys
+from shutil import copyfile, SameFileError
 from parse import read_material_file
 from read_nod import NodModel
 
@@ -57,7 +57,6 @@ def find_all_textures(folderpath):
 
     return textures
 
-from shutil import copyfile, SameFileError
 
 mat2texture = {}
 textures = find_all_textures(input_path)
