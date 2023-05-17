@@ -30,7 +30,12 @@ def combine_paths(first, second):
     return os.path.normpath(os.path.join(first, second))
 
 
-folder = ".\\3D\\Models"
+input_path, output_path = parse_command_line_arguments()
+# print(f"Input Path: {input_path}")
+# print(f"Output Path: {output_path}")
+
+folder = combine_paths(input_path, "3D/Models")
+
 """
 for file in os.listdir(folder):
     fullpath = os.path.join(folder, file)
@@ -55,15 +60,16 @@ def find_all_textures(folderpath):
 from shutil import copyfile, SameFileError
 
 mat2texture = {}
-textures = find_all_textures(".")
+textures = find_all_textures(input_path)
 print("found all textures")
-matpath = "./Materials/"
-os.makedirs("./converted_models/textures/", exist_ok=True)
+matpath = combine_paths(input_path, "Materials")
+texture_out_path = combine_paths(output_path, "textures")
+os.makedirs(texture_out_path, exist_ok=True)
 for tex in textures:
-    path = textures[tex]
-    basename = os.path.basename(path)
+    tex_path = textures[tex]
+    basename = os.path.basename(tex_path)
     try:
-        copyfile(path, os.path.join("./converted_models/textures", basename))
+        copyfile(tex_path, os.path.join(texture_out_path, basename))
     except SameFileError:
         pass
     textures[tex] = os.path.join("./textures", basename)
@@ -108,7 +114,7 @@ for file in os.listdir(folder):
         basename = os.path.basename(fullpath)
 
         with open(fullpath, "rb") as f:
-            objpath = os.path.join("./converted_models/", basename)
+            objpath = os.path.join(output_path, basename)
             with open(objpath+".obj", "w") as g:
                 with open(objpath+".mtl", "w") as h:
                     try:
