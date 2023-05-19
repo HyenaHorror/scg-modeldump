@@ -10,8 +10,8 @@ class Boundary(object):
 
     @classmethod
     def from_file(cls, f):
-        start = Vector3(read_float(f), read_float(f), read_float(f))
-        end = Vector3(read_float(f), read_float(f), read_float(f))
+        start = Vector3.from_file(f)
+        end = Vector3.from_file(f)
         return cls(start, end)
 
 
@@ -35,13 +35,8 @@ class Bone(object):
     @classmethod
     def from_file(cls, f):
         start = f.tell()
-        restTranslate = Vector3(read_float(f), read_float(f), read_float(f))
-        f.seek(start+0x30)
-        invTranslate = Vector3(read_float(f), read_float(f), read_float(f))
-        val = read_uint32(f)
-        parentID = (val >> 0x10) & 0xFF
-        tagID = (val >> 0x18) & 0xFF
-        f.seek(start+0x40)
+        restTranslate = Vector3.from_file(f)
+        invTranslate = [[read_float(f) for _ in range(4)] for _ in range(3)]
 
 
 class MeshGroupFile(object):
@@ -151,8 +146,8 @@ class NodModel(object):
                 if verttype == 0 or verttype == 3:
                     for i in range(vertcount):
                         start = f.tell()
-                        vertexpos = Vector3(read_float(f), read_float(f), read_float(f))
-                        normal = Vector3(read_float(f), read_float(f), read_float(f))
+                        vertexpos = Vector3.from_file(f)
+                        normal = Vector3.from_file(f)
                         uv = Vector3(read_float(f), read_float(f), 0.0)
                         assert f.tell() - start == 0x20
                         #g.write("v {0} {1} {2}\n".format(vertexpos.x, vertexpos.z, -vertexpos.y))
@@ -160,8 +155,8 @@ class NodModel(object):
                 elif verttype == 1:
                      for i in range(vertcount):
                         start = f.tell()
-                        vertexpos = Vector3(read_float(f), read_float(f), read_float(f))
-                        normal = Vector3(read_float(f), read_float(f), read_float(f))
+                        vertexpos = Vector3.from_file(f)
+                        normal = Vector3.from_file(f)
                         uv = Vector3(read_float(f), read_float(f), 0.0)
                         f.read(4)
                         assert f.tell() - start == 0x24
@@ -170,8 +165,8 @@ class NodModel(object):
                 elif verttype == 2:
                      for i in range(vertcount):
                         start = f.tell()
-                        vertexpos = Vector3(read_float(f), read_float(f), read_float(f))
-                        normal = Vector3(read_float(f), read_float(f), read_float(f))
+                        vertexpos = Vector3.from_file(f)
+                        normal = Vector3.from_file(f)
                         uv = Vector3(read_float(f), read_float(f), 0.0)
                         f.read(0x30-0x20)
                         assert f.tell() - start == 0x30
