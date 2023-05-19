@@ -1,20 +1,7 @@
-import struct
+import os
 from vectors import Vector3, Vector2
 from parse import read_material_file
-import os
-
-def read_uint8(f):
-    return struct.unpack("B", f.read(1))[0]
-
-def read_uint16(f):
-    return struct.unpack("H", f.read(2))[0]
-
-def read_uint32(f):
-    return struct.unpack("I", f.read(4))[0]
-
-def read_float(f):
-    return struct.unpack("f", f.read(4))[0]
-
+from binary_readers import *
 
 class Boundary(object):
     def __init__(self, start, end):
